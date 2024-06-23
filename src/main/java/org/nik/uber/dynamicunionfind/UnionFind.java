@@ -7,11 +7,12 @@ import java.util.Objects;
 public class UnionFind {
     private HashMap<Cell, Cell> parents;
     private HashMap<Cell, Integer> ranks;
-    // TODO: think of adding a param to determine number of islands
+    private int numIslands;
 
     public UnionFind() {
         parents = new HashMap<>();
         ranks = new HashMap<>();
+        numIslands = 0;
     }
 
     private Cell find(Cell cell) {
@@ -55,6 +56,7 @@ public class UnionFind {
 
         parents.put(cell, cell);
         ranks.put(cell, 0);
+        numIslands++;
 
         int[][] nbs = {{row + 1, col}, {row - 1, col}, {row, col + 1}, {row, col - 1}};
         for (int[] nb : nbs) {
@@ -63,7 +65,9 @@ public class UnionFind {
 
             Cell nbCell = new Cell(nr, nc);
             if (parents.containsKey(nbCell)) {
-                union(cell, nbCell);
+                if (union(cell, nbCell)) {
+                    numIslands--;
+                }
             }
         }
     }
@@ -74,14 +78,15 @@ public class UnionFind {
         return parents.containsKey(cell);
     }
 
-    // TC: O(n)
-    // SC: O(n)
+    // TC: O(1)
+    // SC: O(1)
     public int getNumIslands() {
-        HashSet<Cell> islands = new HashSet<>();
-        for (Cell cell : parents.keySet()) {
-            islands.add(find(cell));
-        }
-        return islands.size();
+//        HashSet<Cell> islands = new HashSet<>();
+//        for (Cell cell : parents.keySet()) {
+//            islands.add(find(cell));
+//        }
+//        return islands.size();
+        return numIslands;
     }
 }
 

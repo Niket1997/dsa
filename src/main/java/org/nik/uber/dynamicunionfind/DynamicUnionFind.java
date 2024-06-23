@@ -18,6 +18,7 @@ public class DynamicUnionFind {
         uf.add(0, 1);
         uf.add(0, 2);
         uf.add(1, 5);
+        uf.add(0, 3);
         System.out.println(uf.isLand(0, 0));
         System.out.println(uf.getNumIslands());
     }
